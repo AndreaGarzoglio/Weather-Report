@@ -1,0 +1,43 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd /tmp
+          mkdir -p dist-temp
+          cp -r $GITHUB_WORKSPACE/dist/* dist-temp/
+          cd $GITHUB_WORKSPACE
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git fetch --all
+          git checkout -b gh-pages 2>/dev/null || git checkout gh-pages
+          git rm -rf . --force || true
+          cp -r /tmp/dist-temp/* .
+          touch .nojekyll
+          git add .
+          git commit -m "Deploy to GitHub Pages [skip ci]" --allow-empty
+          git push origin gh-pages --force
