@@ -556,7 +556,22 @@ header h1 {
         padding: 10px 0;
     }
 
-    body::before,
+    body::before {
+        position: fixed;
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+        width: 90%;
+        height: auto;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center left;
+        -webkit-mask-image: none;
+        mask-image: none;
+        opacity: 0.7;
+        z-index: 1;
+    }
+
     body::after {
         display: none;
     }
