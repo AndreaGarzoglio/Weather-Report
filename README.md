@@ -38,3 +38,4 @@ Edit the files in the `src/` folder to customize your project:
 - Modify `index.html` for your HTML structure
 - Add your JavaScript logic to `index.js`
 - Update `styles.css` with your custom styles
+
