@@ -1,5 +1,4 @@
 {
-    "type": "module",
     "name": "template",
     "version": "1.0.0",
     "description": "Reusable webpack template project",
