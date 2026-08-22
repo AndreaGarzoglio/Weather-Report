@@ -1,7 +1,7 @@
 {
-    "name": "template",
+    "name": "weather-report",
     "version": "1.0.0",
-    "description": "Reusable webpack template project",
+    "description": "A weather forecast app with an animated, condition-aware sky and real city photography.",
     "main": "index.js",
     "scripts": {
         "start": "webpack serve --mode development --open",

@@ -1,76 +1,84 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Report</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <script src="index.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
+    <!-- Animated background: city photo + weather-driven sky layer -->
+    <div class="bg-photo" id="bgPhoto"></div>
+    <div class="bg-sky" id="bgSky"></div>
+    <div class="bg-scrim"></div>
+
     <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>Weather Report</h1>
-            <div class="controls">
-                <form id="searchForm" class="search-form">
-                    <input type="text" id="locationInput" placeholder="Enter city name..." autocomplete="off" required>
-                    <button type="submit">Search</button>
-                </form>
-                <button id="toggleTemp" class="temp-toggle">°C / °F</button>
-            </div>
-        </header>
+      <!-- Masthead -->
+      <header class="masthead">
+        <p class="eyebrow">Weather Report</p>
+        <div class="controls">
+          <form id="searchForm" class="search-form">
+            <input
+              type="text"
+              id="locationInput"
+              placeholder="Search a city…"
+              autocomplete="off"
+              required
+            />
+            <button type="submit">Search</button>
+          </form>
+          <button id="toggleTemp" class="temp-toggle">°C</button>
+        </div>
+      </header>
 
-        <!-- Loading Indicator -->
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Loading weather data...</p>
+      <!-- Loading Indicator -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Reading the sky…</p>
+      </div>
+
+      <!-- Error Message -->
+      <div id="errorMessage" class="error-message hidden"></div>
+
+      <!-- Bulletin: current / selected conditions -->
+      <section id="currentWeather" class="bulletin hidden">
+        <div class="bulletin-head">
+          <div>
+            <h2 id="location"></h2>
+            <p class="bulletin-meta" id="selectedMoment"></p>
+          </div>
+          <div class="bulletin-icon" id="weatherIcon"></div>
         </div>
 
-        <!-- Error Message -->
-        <div id="errorMessage" class="error-message hidden"></div>
+        <div class="bulletin-temp">
+          <span id="temp"></span>
+          <p id="description"></p>
+        </div>
 
-        <!-- Current Weather Display -->
-        <section id="currentWeather" class="weather-section hidden">
-            <div class="weather-header">
-                <h2 id="location"></h2>
-                <div class="location-date"></div>
-            </div>
-            <div class="weather-main">
-                <div class="weather-image">
-                    <div id="weatherIcon"></div>
-                    <p id="description"></p>
-                </div>
-                <div class="weather-info">
-                    <div class="temperature">
-                        <span id="temp"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="weather-details">
-                <div class="detail-item">
-                    <span class="detail-label">Feels like</span>
-                    <span class="detail-value" id="feelsLike"></span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Humidity</span>
-                    <span class="detail-value" id="humidity"></span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Wind Speed</span>
-                    <span class="detail-value" id="windSpeed"></span>
-                </div>
-            </div>
-        </section>
+        <!-- Day selector -->
+        <div class="day-rail" id="dayRail"></div>
 
-        <!-- 7-Day Forecast -->
-        <section id="forecastSection" class="forecast-section hidden">
-            <h3>7-Day Forecast</h3>
-            <div id="forecast" class="forecast-grid"></div>
-        </section>
+        <!-- Hour selector with sparkline -->
+        <div class="hour-rail-wrap">
+          <svg
+            class="sparkline"
+            id="sparkline"
+            viewBox="0 0 240 40"
+            preserveAspectRatio="none"
+          ></svg>
+          <div class="hour-rail" id="hourRail"></div>
+        </div>
+
+        <div class="weather-details" id="detailGrid"></div>
+      </section>
     </div>
-</body>
-
+  </body>
 </html>
