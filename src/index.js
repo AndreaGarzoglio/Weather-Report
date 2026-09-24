@@ -10,6 +10,9 @@ const API_BASE_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 const WIKI_SUMMARY_URL = "https://en.wikipedia.org/api/rest_v1/page/summary";
 const DAYS_SHOWN = 8;
+const DEFAULT_LOCATION = "Genova, Italia";
+// Bare city names the API resolves to the wrong place (e.g. "genova" → Guatemala).
+const LOCATION_ALIASES = { genova: DEFAULT_LOCATION, genoa: DEFAULT_LOCATION };
 
 let isCelsius = true;
 let currentWeatherData = null;
@@ -454,7 +457,8 @@ hourRail.addEventListener("scroll", () => updateEdgeFade(hourRail));
 
 searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const location = locationInput.value.trim();
+  const input = locationInput.value.trim();
+  const location = LOCATION_ALIASES[input.toLowerCase()] ?? input;
   if (!location) {
     showError("Please enter a location");
     return;
@@ -474,4 +478,4 @@ toggleTempBtn.addEventListener("click", () => {
 // ============================================
 
 toggleTempBtn.textContent = "°C";
-loadLocation("Genoa");
+loadLocation(DEFAULT_LOCATION);
